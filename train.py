@@ -7,13 +7,17 @@ from keras.preprocessing.image import ImageDataGenerator
 from model import get_model
 from utils import crps, real_to_cdf, preprocess, rotation_augmentation, shift_augmentation
 
+import os
+
+DATA_DIR = '../'
+
 
 def load_train_data():
     """
     Load training data from .npy files.
     """
-    X = np.load('data/X_train.npy')
-    y = np.load('data/y_train.npy')
+    X = np.load(os.path.join(DATA_DIR, 'X_train.npy'))
+    y = np.load(os.path.join(DATA_DIR, 'y_train.npy'))
 
     X = X.astype(np.float32)
     X /= 255
