@@ -5,6 +5,9 @@ import numpy as np
 import dicom
 from scipy.misc import imresize
 
+
+DATA_DIR = '../'
+
 img_resize = True
 img_shape = (64, 64)
 
@@ -116,7 +119,7 @@ def map_studies_results():
     Maps studies to their respective targets.
     """
     id_to_results = dict()
-    train_csv = open('data/train.csv')
+    train_csv = open(os.path.join(DATA_DIR, 'train.csv'))
     lines = train_csv.readlines()
     i = 0
     for item in lines:
@@ -137,7 +140,7 @@ def write_train_npy():
     print('Writing training data to .npy file...')
     print('-'*50)
 
-    study_ids, images = load_images('data/train')  # load images and their ids
+    study_ids, images = load_images(os.path.join(DATA_DIR, 'train'))  # load images and their ids
     studies_to_results = map_studies_results()  # load the dictionary of studies to targets
     X = []
     y = []
@@ -151,8 +154,8 @@ def write_train_npy():
 
     X = np.array(X, dtype=np.uint8)
     y = np.array(y)
-    np.save('data/X_train.npy', X)
-    np.save('data/y_train.npy', y)
+    np.save(os.path.join(DATA_DIR, 'X_train.npy'), X)
+    np.save(os.path.join(DATA_DIR, 'y_train.npy'), y)
     print('Done.')
 
 
@@ -164,7 +167,7 @@ def write_validation_npy():
     print('Writing validation data to .npy file...')
     print('-'*50)
 
-    ids, images = load_images('data/validate')
+    ids, images = load_images(os.path.join(DATA_DIR, 'validate'))
     study_ids = []
     X = []
 
@@ -175,8 +178,8 @@ def write_validation_npy():
             X.append(study[i, :, :, :])
 
     X = np.array(X, dtype=np.uint8)
-    np.save('data/X_validate.npy', X)
-    np.save('data/ids_validate.npy', study_ids)
+    np.save(os.path.join(DATA_DIR, 'X_validate.npy'), X)
+    np.save(os.path.join(DATA_DIR, 'ids_validate.npy'), study_ids)
     print('Done.')
 
 
