@@ -13,7 +13,6 @@ such experimentation.
 
 ---
 ## Basic info
-
 ### Data set
 
 Raw data set for this competition provided by Kaggle is pre-processed by
